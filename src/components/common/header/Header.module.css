@@ -1,0 +1,11 @@
+.logo {
+  width: 2.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+.logo:hover {
+  opacity: 0.85;
+}
