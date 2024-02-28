@@ -1,16 +1,18 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import {
+  checkIfExamIsActive,
   completeStudentEnrollment,
   findStudentEnrollments,
 } from "../../../../services/api/endpoints/exam.api";
 import AppContext from "../../../../store/AppContext";
 import ExamCard from "../../../common/exam/ExamCard";
+import { useNavigate } from "react-router-dom";
 
 export const StudentUpcomingExams = () => {
   const [exams, setExams] = useState([]);
   const { showLoader, hideLoader, handleAPIError } = useContext(AppContext);
-
+  const navigate = useNavigate();
   const getUpcomingExams = async () => {
     try {
       showLoader();
@@ -39,6 +41,24 @@ export const StudentUpcomingExams = () => {
       hideLoader();
     }
   };
+
+  const handleAttemptNow = async (examId) => {
+    try {
+      showLoader();
+      const response = await checkIfExamIsActive(examId);
+      const { isActive, message } = response.data;
+      console.log(isActive, message);
+      if (isActive) {
+        navigate(`/student/exams/${examId}/window`);
+      } else {
+        alert(message);
+      }
+    } catch (err) {
+      handleAPIError(err);
+    } finally {
+      hideLoader();
+    }
+  };
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -48,7 +68,11 @@ export const StudentUpcomingExams = () => {
         {exams.map((exam) => {
           return (
             <Grid key={exam.enrollmentId} item md={4}>
-              <ExamCard exam={exam} onEnroll={handleEnroll} />
+              <ExamCard
+                exam={exam}
+                onEnroll={handleEnroll}
+                onAttempt={handleAttemptNow}
+              />
             </Grid>
           );
         })}

@@ -91,7 +91,7 @@ const ExamSettings = ({ examDetails, refresh }) => {
                 onChange={handleInputChange}
               />
             </ListItem>
-            <ListItem disablePadding>
+            {/* <ListItem disablePadding>
               <ListItemIcon>
                 <Camera />
               </ListItemIcon>
@@ -102,7 +102,7 @@ const ExamSettings = ({ examDetails, refresh }) => {
                 disabled={!inEditMode}
                 onChange={handleInputChange}
               />
-            </ListItem>
+            </ListItem> */}
             <ListItem disablePadding>
               <ListItemIcon>
                 <Shuffle />

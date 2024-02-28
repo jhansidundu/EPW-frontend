@@ -74,3 +74,13 @@ export const findStudentEnrollments = async () => {
   const response = await api.get(`student/exams`);
   return response.data;
 };
+
+export const checkIfExamIsActive = async (examId) => {
+  const response = await api.get(`exam/${examId}/active`);
+  return response.data;
+};
+
+export const findExamQuestionsForStudent = async (examId) => {
+  const response = await api.get(`student/exam/${examId}/questions`);
+  return response.data;
+};

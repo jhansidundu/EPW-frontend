@@ -19,7 +19,7 @@ const ValueChip = ({ text }) => {
   );
 };
 
-const ExamCard = ({ exam, onEnroll }) => {
+const ExamCard = ({ exam, onEnroll, onAttempt }) => {
   const examDate = dayjs(exam?.examDate).format("MMM D, YYYY h:mm a");
   const hasEnrolled = exam.status === "ENROLLED";
 
@@ -96,7 +96,12 @@ const ExamCard = ({ exam, onEnroll }) => {
         )}
 
         {hasEnrolled && (
-          <Button variant="contained" color="primary" size="small">
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={() => onAttempt(exam.examId, exam.enrollmentId)}
+          >
             Attempt Now
           </Button>
         )}

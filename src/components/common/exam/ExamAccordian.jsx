@@ -173,13 +173,13 @@ const ExamAccordian = ({ expanded, onToggle, exam, examDetails }) => {
               >
                 Enroll Students
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 size="small"
                 sx={{ marginX: "0.5rem" }}
               >
                 Exam Report
-              </Button>
+              </Button> */}
             </Box>
           </Box>
         )}

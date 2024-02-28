@@ -81,7 +81,7 @@ const Sidebar = () => {
                 <ListItemText primary="Dashboard" />
               </StyledListItemButton>
             </StyledListItem>
-            <StyledListItem disableGutters>
+            {/* <StyledListItem disableGutters>
               <StyledListItemButton
                 selected={seletedItem === "Exams"}
                 onClick={() => handleListItemClick("Exams", "/admin/exams")}
@@ -91,7 +91,7 @@ const Sidebar = () => {
                 </StyledListItemIcon>
                 <ListItemText primary="Exams" />
               </StyledListItemButton>
-            </StyledListItem>
+            </StyledListItem> */}
             <StyledListItem disableGutters>
               <StyledListItemButton
                 selected={seletedItem === "Users"}
@@ -103,7 +103,7 @@ const Sidebar = () => {
                 <ListItemText primary="Users" />
               </StyledListItemButton>
             </StyledListItem>
-            <StyledListItem disableGutters>
+            {/* <StyledListItem disableGutters>
               <StyledListItemButton
                 selected={seletedItem === "Settings"}
                 onClick={() =>
@@ -115,7 +115,7 @@ const Sidebar = () => {
                 </StyledListItemIcon>
                 <ListItemText primary="Settings" />
               </StyledListItemButton>
-            </StyledListItem>
+            </StyledListItem> */}
           </>
         )}
         {user.role === "teacher" && (

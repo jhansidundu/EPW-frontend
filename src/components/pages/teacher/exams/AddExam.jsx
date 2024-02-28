@@ -44,8 +44,8 @@ const AddExam = () => {
     negativeMarking: false,
     switchBetweenQuestions: true,
   });
-  const examDateRef = useRef < HTMLInputElement > null;
-  const examTimeRef = useRef < HTMLInputElement > null;
+  const examDateRef = useRef(null);
+  const examTimeRef = useRef(null);
   const { showLoader, hideLoader, handleAPIError } = useContext(AppContext);
   const handleInputChange = (e) => {
     const { name, value } = e.target;

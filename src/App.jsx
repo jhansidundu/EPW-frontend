@@ -13,6 +13,9 @@ import Settings from "./components/pages/admin/settings/Settings";
 import AllUsers from "./components/pages/admin/users/AllUsers";
 import RouteError from "./components/pages/error/RouteError";
 import Home from "./components/pages/home/Home";
+import StudentDashboard from "./components/pages/student/dashboard/StudentDashboard";
+import StudentEnrollment from "./components/pages/student/enrollment/StudentEnrollment";
+import ExamWindow from "./components/pages/student/exams/ExamWindow";
 import StudentLogin from "./components/pages/student/login/StudentLogin";
 import StudentSignup from "./components/pages/student/signup/StudentSignup";
 import TeacherDashboard from "./components/pages/teacher/dashboard/TeacherDashboard";
@@ -23,8 +26,6 @@ import TeacherExams from "./components/pages/teacher/exams/TeacherExams";
 import TeacherLogin from "./components/pages/teacher/login/TeacherLogin";
 import TeacherSingup from "./components/pages/teacher/signup/TeacherSingup";
 import AppContext from "./store/AppContext";
-import StudentEnrollment from "./components/pages/student/enrollment/StudentEnrollment";
-import StudentDashboard from "./components/pages/student/dashboard/StudentDashboard";
 
 const AppRoutes = () => (
   <Routes>
@@ -33,7 +34,22 @@ const AppRoutes = () => (
       <Route path="login" element={<StudentLogin />} />
       <Route path="signup" element={<StudentSignup />} />
       <Route path="enroll/:enrollmentId" element={<StudentEnrollment />} />
-      <Route path="dashboard" element={<ProtectedRoute><StudentDashboard /></ProtectedRoute>} />
+      <Route
+        path="dashboard"
+        element={
+          <ProtectedRoute>
+            <StudentDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="exams/:examId/window"
+        element={
+          <ProtectedRoute>
+            <ExamWindow />
+          </ProtectedRoute>
+        }
+      />
     </Route>
     <Route path="teacher">
       <Route path="signup" element={<TeacherSingup />} />
