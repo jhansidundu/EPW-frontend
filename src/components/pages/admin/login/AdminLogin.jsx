@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Grid,
   Link,
   TextField,
   Typography,
@@ -8,14 +9,16 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import appLogo from "../../../../assets/logo-title.png";
+import adminLogo from "../../../../assets/admin.png";
 import { login } from "../../../../services/api/endpoints/auth.api";
 import AppContext from "../../../../store/AppContext";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   margin: "4rem auto",
-  padding: "3rem 4rem",
-  minWidth: "30%",
-  maxWidth: "40%",
+  padding: "3rem 0rem",
+  minWidth: "40%",
+  maxWidth: "60%",
   [theme.breakpoints.down("md")]: {
     minWidth: "60%",
     padding: "3rem 2rem",
@@ -59,48 +62,74 @@ const AdminLogin = () => {
     }
   };
   return (
-    <StyledBox>
-      <Typography
-        variant="h6"
-        sx={{ textAlign: "center", marginBottom: "1rem" }}
-      >
-        Admin Login
-      </Typography>
-      <form>
-        <StyledTextField
-          type="email"
-          label="Email"
-          size="small"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          fullWidth
-        />
-        <StyledTextField
-          type="password"
-          label="Password"
-          size="small"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          fullWidth
-        />
-        <Box
+    <Box>
+      <Box>
+        <Button onClick={() => navigate("/")}>
+          <img src={appLogo} width={200} />
+        </Button>
+      </Box>
+      <Grid container>
+        <Grid
+          item
+          md={3}
           sx={{
-            marginBottom: "0.5rem",
             display: "flex",
             justifyContent: "flex-end",
+            alignItems: "center",
           }}
         >
-          <Link underline="none" component={RouterLink} to={"/forgot-password"}>
-            Forgot Password?
-          </Link>
-        </Box>
-        <Button variant="contained" fullWidth onClick={handleSubmit}>
-          Login
-        </Button>
-      </form>
-    </StyledBox>
+          <img src={adminLogo} alt="" width={300} />
+        </Grid>
+        <Grid item md={9}>
+          <StyledBox>
+            <Typography
+              variant="h6"
+              sx={{ textAlign: "center", marginBottom: "1rem" }}
+            >
+              Admin Login
+            </Typography>
+            <form>
+              <StyledTextField
+                type="email"
+                label="Email"
+                size="small"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                fullWidth
+              />
+              <StyledTextField
+                type="password"
+                label="Password"
+                size="small"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                fullWidth
+              />
+              <Box
+                sx={{
+                  marginBottom: "0.5rem",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Link
+                  underline="none"
+                  component={RouterLink}
+                  to={"/forgot-password"}
+                >
+                  Forgot Password?
+                </Link>
+              </Box>
+              <Button variant="contained" fullWidth onClick={handleSubmit}>
+                Login
+              </Button>
+            </form>
+          </StyledBox>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

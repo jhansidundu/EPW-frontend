@@ -1,11 +1,12 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { isTokenValid } from "../services/api/endpoints/auth.api";
 import { findExamStatusList } from "../services/api/endpoints/exam.api";
 
 const AppContext = createContext(null);
 
 export const AppContextProvider = ({ children }) => {
+  const location = useLocation();
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [verifyingToken, setVerifyingToken] = useState(true);
@@ -47,7 +48,9 @@ export const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    validateToken();
+    if (!location.pathname.match(/^\/student\/enroll\/(.+)$/)) {
+      validateToken();
+    }
     getExamStatusList();
   }, []);
 

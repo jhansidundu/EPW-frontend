@@ -1,6 +1,6 @@
 import { Box, Divider } from "@mui/material";
 import { useContext } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import styles from "./App.module.css";
 import ProtectedRoute from "./components/common/guards/ProtectedRoute";
 import Header from "./components/common/header/Header";
@@ -13,8 +13,8 @@ import Settings from "./components/pages/admin/settings/Settings";
 import AllUsers from "./components/pages/admin/users/AllUsers";
 import RouteError from "./components/pages/error/RouteError";
 import Home from "./components/pages/home/Home";
-import StudentLogin from "./components/pages/student/student-login/StudentLogin";
-import StudentSignup from "./components/pages/student/student-signup/StudentSignup";
+import StudentLogin from "./components/pages/student/login/StudentLogin";
+import StudentSignup from "./components/pages/student/signup/StudentSignup";
 import TeacherDashboard from "./components/pages/teacher/dashboard/TeacherDashboard";
 import AddExam from "./components/pages/teacher/exams/AddExam";
 import EnrollStudents from "./components/pages/teacher/exams/EnrollStudents";
@@ -23,6 +23,8 @@ import TeacherExams from "./components/pages/teacher/exams/TeacherExams";
 import TeacherLogin from "./components/pages/teacher/login/TeacherLogin";
 import TeacherSingup from "./components/pages/teacher/signup/TeacherSingup";
 import AppContext from "./store/AppContext";
+import StudentEnrollment from "./components/pages/student/enrollment/StudentEnrollment";
+import StudentDashboard from "./components/pages/student/dashboard/StudentDashboard";
 
 const AppRoutes = () => (
   <Routes>
@@ -30,11 +32,12 @@ const AppRoutes = () => (
     <Route path="student">
       <Route path="login" element={<StudentLogin />} />
       <Route path="signup" element={<StudentSignup />} />
+      <Route path="enroll/:enrollmentId" element={<StudentEnrollment />} />
+      <Route path="dashboard" element={<ProtectedRoute><StudentDashboard /></ProtectedRoute>} />
     </Route>
     <Route path="teacher">
       <Route path="signup" element={<TeacherSingup />} />
       <Route path="login" element={<TeacherLogin />} />
-
       <Route
         path="dashboard"
         element={
@@ -117,6 +120,17 @@ const AppRoutes = () => (
 
 function App() {
   const { loggedIn, isLoading } = useContext(AppContext);
+  const location = useLocation();
+  if (location.pathname.match(/^\/student\/enroll\/(.+)$/)) {
+    return (
+      <>
+        <Loader isLoading={isLoading} />
+        <Box sx={{ padding: "1rem" }}>
+          <AppRoutes />
+        </Box>
+      </>
+    );
+  }
   return (
     <Box
       sx={{

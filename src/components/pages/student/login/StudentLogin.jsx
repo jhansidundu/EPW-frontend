@@ -10,10 +10,10 @@ import {
 
 import { useContext, useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import teacherLogo from "../../../../assets/teacher.png";
+import studentLogo from "../../../../assets/student.png";
+import appLogo from "../../../../assets/logo-title.png";
 import { login } from "../../../../services/api/endpoints/auth.api";
 import AppContext from "../../../../store/AppContext";
-import appLogo from "../../../../assets/logo-title.png";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   margin: "4rem auto",
@@ -34,11 +34,11 @@ const StyledTextField = styled(TextField)(() => ({
   marginBottom: "1rem",
 }));
 
-const TeacherLogin = () => {
+const StudentLogin = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    role: "teacher",
+    role: "student",
   });
   const navigate = useNavigate();
 
@@ -55,7 +55,7 @@ const TeacherLogin = () => {
       showLoader();
       const authRes = await login(formData);
       setLoginState(authRes.data);
-      navigate("/teacher/dashboard");
+      navigate("/student/dashboard");
     } catch (err) {
       handleAPIError(err);
     } finally {
@@ -79,7 +79,7 @@ const TeacherLogin = () => {
             alignItems: "center",
           }}
         >
-          <img src={teacherLogo} alt="" />
+          <img src={studentLogo} alt="" width="300" />
         </Grid>
 
         <Grid item md={9}>
@@ -88,7 +88,7 @@ const TeacherLogin = () => {
               variant="h6"
               sx={{ textAlign: "center", marginBottom: "1rem" }}
             >
-              Teacher Login
+              Student Login
             </Typography>
             <form>
               <StyledTextField
@@ -131,7 +131,7 @@ const TeacherLogin = () => {
                 Don't have an account?{" "}
                 <Link
                   component={RouterLink}
-                  to={"/teacher/signup"}
+                  to={"/student/signup"}
                   underline="none"
                 >
                   Register here
@@ -145,4 +145,4 @@ const TeacherLogin = () => {
   );
 };
 
-export default TeacherLogin;
+export default StudentLogin;

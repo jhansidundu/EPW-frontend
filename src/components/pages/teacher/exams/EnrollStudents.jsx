@@ -16,9 +16,14 @@ import {
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { findExamDetails } from "../../../../services/api/endpoints/exam.api";
+import {
+  enrollStudents,
+  findEnrollments,
+  findExamDetails,
+} from "../../../../services/api/endpoints/exam.api";
 import AppContext from "../../../../store/AppContext";
 import ExamDetails from "../../../common/exam/ExamDetails";
+import { Notifications } from "@mui/icons-material";
 
 const textFieldStyles = {
   borderBottom: "none",
@@ -45,14 +50,17 @@ function EnrollStudents() {
   const [exam, setExam] = useState(null);
   const [emails, setEmails] = useState([]);
   const [email, setEmail] = useState("");
-  const [enrolledStudents, setEnrolledStudents] = useState([
-    { name: "abc", email: "abc@gmail.com", status: "Not Enrolled" },
-  ]);
+  const [enrolledStudents, setEnrolledStudents] = useState([]);
   const { showLoader, hideLoader, handleAPIError } = useContext(AppContext);
+
   const handleKeyDown = (event) => {
     const newEmail = email.trim();
     if (!!newEmail) {
       if (event.key === "Enter" || event.key === "Tab" || event.key === " ") {
+        if (emails.includes(newEmail)) {
+          setEmail("");
+          return;
+        }
         setEmails([...emails, newEmail]);
         setEmail("");
       }
@@ -63,6 +71,22 @@ function EnrollStudents() {
     const newEmails = [...emails];
     newEmails.splice(index, 1);
     setEmails(newEmails);
+  };
+
+  const handleAddStudents = async () => {
+    try {
+      showLoader();
+      const response = await enrollStudents({
+        emails,
+        examId,
+      });
+      setEmails([]);
+      getExamEnrollments();
+    } catch (err) {
+      handleAPIError(err);
+    } finally {
+      hideLoader();
+    }
   };
 
   const getExamDetails = async () => {
@@ -79,8 +103,23 @@ function EnrollStudents() {
     }
   };
 
+  const getExamEnrollments = async () => {
+    try {
+      showLoader();
+      if (examId) {
+        const res = await findEnrollments(examId);
+        setEnrolledStudents(res.data);
+      }
+    } catch (e) {
+      handleAPIError(e);
+    } finally {
+      hideLoader();
+    }
+  };
+
   useEffect(() => {
     getExamDetails();
+    getExamEnrollments();
   }, []);
 
   return (
@@ -91,14 +130,14 @@ function EnrollStudents() {
           <Paper sx={{ marginTop: "1rem", padding: "1rem" }}>
             <Typography variant="subtitle1">Enrolled Students</Typography>
             <TableContainer>
-              <Table>
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <TableCell>S.No</TableCell>
                     <TableCell>Name</TableCell>
                     <TableCell>Email</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Action</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>Status</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>Action</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -107,12 +146,18 @@ function EnrollStudents() {
                       <TableRow key={student.email}>
                         <TableCell>{idx + 1}</TableCell>
                         <TableCell>
-                          {student.name ? student.name : "NA"}
+                          {student.username ? student.username : "NA"}
                         </TableCell>
                         <TableCell>{student.email}</TableCell>
-                        <TableCell>{student.status}</TableCell>
-                        <TableCell>
-                          <Button variant="contained" size="small">
+                        <TableCell sx={{ textAlign: "center" }}>
+                          <Chip color="warning" label={student.status} />
+                        </TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            endIcon={<Notifications />}
+                          >
                             Notify
                           </Button>
                         </TableCell>
@@ -152,9 +197,8 @@ function EnrollStudents() {
               }}
             >
               {emails.map((email, index) => (
-                <Tooltip title={email}>
+                <Tooltip title={email} key={index}>
                   <Chip
-                    key={index}
                     label={email}
                     onDelete={() => handleChipDelete(index)}
                     contentEditable={false}
@@ -164,20 +208,35 @@ function EnrollStudents() {
             </Box>
           </Box>
           <Box sx={{ marginTop: "1rem", display: "flex", columnGap: "1rem" }}>
-            <Button
-              size="small"
-              variant="contained"
-              sx={{ paddingX: "1rem" }}
-              onClick={() => setEmails([])}
-            >
-              Clear All
-            </Button>
-            <Button size="small" variant="contained" sx={{ paddingX: "1rem" }}>
-              Upload
-            </Button>
-            <Button size="small" variant="contained" sx={{ paddingX: "1rem" }}>
-              Add
-            </Button>
+            <Tooltip title="Clear all emails">
+              <Button
+                size="small"
+                variant="contained"
+                sx={{ paddingX: "1rem" }}
+                onClick={() => setEmails([])}
+              >
+                Clear All
+              </Button>
+            </Tooltip>
+            <Tooltip title="Upload from file">
+              <Button
+                size="small"
+                variant="contained"
+                sx={{ paddingX: "1rem" }}
+              >
+                Upload
+              </Button>
+            </Tooltip>
+            <Tooltip title="Enroll">
+              <Button
+                size="small"
+                variant="contained"
+                sx={{ paddingX: "1rem" }}
+                onClick={handleAddStudents}
+              >
+                Enroll
+              </Button>
+            </Tooltip>
           </Box>
         </Grid>
       </Grid>

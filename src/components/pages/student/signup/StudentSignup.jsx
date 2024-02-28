@@ -7,13 +7,12 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-
 import { useContext, useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import teacherLogo from "../../../../assets/teacher.png";
-import { login } from "../../../../services/api/endpoints/auth.api";
-import AppContext from "../../../../store/AppContext";
+import studentLogo from "../../../../assets/student.png";
 import appLogo from "../../../../assets/logo-title.png";
+import { signup } from "../../../../services/api/endpoints/auth.api";
+import AppContext from "../../../../store/AppContext";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   margin: "4rem auto",
@@ -34,11 +33,12 @@ const StyledTextField = styled(TextField)(() => ({
   marginBottom: "1rem",
 }));
 
-const TeacherLogin = () => {
+const StudentSingup = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    role: "teacher",
+    name: "",
+    role: "student",
   });
   const navigate = useNavigate();
 
@@ -53,9 +53,9 @@ const TeacherLogin = () => {
   const handleSubmit = async () => {
     try {
       showLoader();
-      const authRes = await login(formData);
+      const authRes = await signup(formData);
       setLoginState(authRes.data);
-      navigate("/teacher/dashboard");
+      navigate("/student/dashboard");
     } catch (err) {
       handleAPIError(err);
     } finally {
@@ -79,7 +79,7 @@ const TeacherLogin = () => {
             alignItems: "center",
           }}
         >
-          <img src={teacherLogo} alt="" />
+          <img src={studentLogo} alt="" width={300} />
         </Grid>
 
         <Grid item md={9}>
@@ -88,53 +88,53 @@ const TeacherLogin = () => {
               variant="h6"
               sx={{ textAlign: "center", marginBottom: "1rem" }}
             >
-              Teacher Login
+              Register here as a student
             </Typography>
             <form>
+              <StyledTextField
+                type="text"
+                label="Username"
+                size="small"
+                fullWidth
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+              />
               <StyledTextField
                 type="email"
                 label="Email"
                 size="small"
+                fullWidth
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                fullWidth
               />
               <StyledTextField
                 type="password"
                 label="Password"
                 size="small"
+                fullWidth
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                fullWidth
               />
-              <Box
-                sx={{
-                  marginBottom: "0.5rem",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
+
+              <Button
+                variant="contained"
+                type="button"
+                fullWidth
+                onClick={handleSubmit}
               >
-                <Link
-                  underline="none"
-                  component={RouterLink}
-                  to={"/forgot-password"}
-                >
-                  Forgot Password?
-                </Link>
-              </Box>
-              <Button variant="contained" fullWidth onClick={handleSubmit}>
-                Login
+                Sign up
               </Button>
               <Box sx={{ marginTop: "1rem" }}>
-                Don't have an account?{" "}
+                Already have an account?{" "}
                 <Link
                   component={RouterLink}
-                  to={"/teacher/signup"}
+                  to={"/student/login"}
                   underline="none"
                 >
-                  Register here
+                  Login here
                 </Link>
               </Box>
             </form>
@@ -145,4 +145,4 @@ const TeacherLogin = () => {
   );
 };
 
-export default TeacherLogin;
+export default StudentSingup;

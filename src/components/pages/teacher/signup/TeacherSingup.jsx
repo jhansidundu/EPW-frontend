@@ -12,6 +12,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import teacherLogo from "../../../../assets/teacher.png";
 import { signup } from "../../../../services/api/endpoints/auth.api";
 import AppContext from "../../../../store/AppContext";
+import appLogo from "../../../../assets/logo-title.png";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   margin: "4rem auto",
@@ -62,78 +63,85 @@ const TeacherSingup = () => {
     }
   };
   return (
-    <Grid container>
-      <Grid
-        item
-        md={3}
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        <img src={teacherLogo} alt="" />
-      </Grid>
+    <Box>
+      <Box>
+        <Button onClick={() => navigate("/")}>
+          <img src={appLogo} width={200} />
+        </Button>
+      </Box>
+      <Grid container>
+        <Grid
+          item
+          md={3}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          <img src={teacherLogo} alt="" />
+        </Grid>
 
-      <Grid item md={9}>
-        <StyledBox>
-          <Typography
-            variant="h6"
-            sx={{ textAlign: "center", marginBottom: "1rem" }}
-          >
-            Register here as a teacher
-          </Typography>
-          <form>
-            <StyledTextField
-              type="text"
-              label="Username"
-              size="small"
-              fullWidth
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-            />
-            <StyledTextField
-              type="email"
-              label="Email"
-              size="small"
-              fullWidth
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-            <StyledTextField
-              type="password"
-              label="Password"
-              size="small"
-              fullWidth
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
-
-            <Button
-              variant="contained"
-              type="button"
-              fullWidth
-              onClick={handleSubmit}
+        <Grid item md={9}>
+          <StyledBox>
+            <Typography
+              variant="h6"
+              sx={{ textAlign: "center", marginBottom: "1rem" }}
             >
-              Sign up
-            </Button>
-            <Box sx={{ marginTop: "1rem" }}>
-              Already have an account?{" "}
-              <Link
-                component={RouterLink}
-                to={"/teacher/login"}
-                underline="none"
+              Register here as a teacher
+            </Typography>
+            <form>
+              <StyledTextField
+                type="text"
+                label="Username"
+                size="small"
+                fullWidth
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+              />
+              <StyledTextField
+                type="email"
+                label="Email"
+                size="small"
+                fullWidth
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+              <StyledTextField
+                type="password"
+                label="Password"
+                size="small"
+                fullWidth
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+
+              <Button
+                variant="contained"
+                type="button"
+                fullWidth
+                onClick={handleSubmit}
               >
-                Login here
-              </Link>
-            </Box>
-          </form>
-        </StyledBox>
+                Sign up
+              </Button>
+              <Box sx={{ marginTop: "1rem" }}>
+                Already have an account?{" "}
+                <Link
+                  component={RouterLink}
+                  to={"/teacher/login"}
+                  underline="none"
+                >
+                  Login here
+                </Link>
+              </Box>
+            </form>
+          </StyledBox>
+        </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 };
 

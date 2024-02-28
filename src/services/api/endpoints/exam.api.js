@@ -49,3 +49,28 @@ export const deleteQuestion = async (questionId) => {
   const response = await api.delete(`question/${questionId}`);
   return response.data;
 };
+
+export const enrollStudents = async (payload) => {
+  const response = await api.post("enroll/students", payload);
+  return response.data;
+};
+
+export const findEnrollments = async (examId) => {
+  const response = await api.get(`exam/${examId}/enrollments`);
+  return response.data;
+};
+
+export const completeStudentAutoEnrollment = async (payload) => {
+  const response = await api.post(`student/auto-enroll`, payload);
+  return response.data;
+};
+
+export const completeStudentEnrollment = async (payload) => {
+  const response = await api.post(`student/enroll`, payload);
+  return response.data;
+};
+
+export const findStudentEnrollments = async () => {
+  const response = await api.get(`student/exams`);
+  return response.data;
+};

@@ -146,6 +146,23 @@ const Sidebar = () => {
             </StyledListItem>
           </>
         )}
+        {user.role === "student" && (
+          <>
+            <StyledListItem disableGutters>
+              <StyledListItemButton
+                selected={seletedItem === "Dashboard"}
+                onClick={() =>
+                  handleListItemClick("Dashboard", "/student/dashboard")
+                }
+              >
+                <StyledListItemIcon>
+                  <Dashboard />
+                </StyledListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </StyledListItemButton>
+            </StyledListItem>
+          </>
+        )}
       </List>
     </Box>
   );
