@@ -94,14 +94,12 @@ export const AppContextProvider = ({ children }) => {
     if (err.response?.status === 401) {
       handleLogout();
       hideLoader();
-
-      // handleShowToast("Session has timed out!", true);
     } else if (err?.response?.status === 403) {
-      // handleShowToast("Access denied!", true);
+      alert(err.response.data.message);
     } else if (err?.response?.status === 400) {
-      // handleShowToast(err.response?.data?.message, true);
+      alert(err.response.data.message);
     } else {
-      // handleShowToast("Unknown Error", true);
+      alert("Unknown Error");
     }
   };
 

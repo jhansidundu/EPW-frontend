@@ -35,6 +35,7 @@ export const StudentUpcomingExams = () => {
     try {
       showLoader();
       await completeStudentEnrollment({ enrollmentId });
+      getUpcomingExams();
     } catch (err) {
       handleAPIError(err);
     } finally {
@@ -63,7 +64,7 @@ export const StudentUpcomingExams = () => {
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h6">Upcoming Exams</Typography>
       </Box>
-      <Grid container sx={{ marginTop: "1rem" }}>
+      <Grid container sx={{ marginTop: "1rem" }} spacing={2}>
         {exams.map((exam) => {
           return (
             <Grid key={exam.enrollmentId} item md={4}>

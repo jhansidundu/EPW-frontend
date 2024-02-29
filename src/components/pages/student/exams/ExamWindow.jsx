@@ -144,7 +144,6 @@ const ExamWindow = () => {
 
       showLoader();
       await saveAnswer(payload);
-      return res.json({ success: true });
     } catch (err) {
       handleAPIError(err);
     } finally {
@@ -212,7 +211,7 @@ const ExamWindow = () => {
                 }}
               >
                 <Paper sx={{ padding: "2rem 1rem", minWidth: "30%" }}>
-                  <Grid container spacing={2}>
+                  {/* <Grid container spacing={2}>
                     <Grid item md={7} sx={{ textAlign: "right" }}>
                       <Typography variant="body1">
                         Questions Attempted
@@ -229,10 +228,13 @@ const ExamWindow = () => {
                     <Grid item md={3}>
                       <ValueChip text={10} />
                     </Grid>
-                  </Grid>
+                  </Grid> */}
+                  <Typography variant="h6" sx={{ textAlign: "center" }}>
+                    Are you sure want to finish?
+                  </Typography>
                   {examTimeOver && (
                     <Box sx={{ marginTop: "1rem" }}>
-                      <Typography variant="body2">
+                      <Typography variant="body2" sx={{ textAlign: "center" }}>
                         Exam will be submitted in {finishTime} seconds.
                       </Typography>
                     </Box>

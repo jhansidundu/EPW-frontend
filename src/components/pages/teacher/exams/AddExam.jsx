@@ -24,6 +24,7 @@ import dayjs from "dayjs";
 import { useContext, useRef, useState } from "react";
 import { createExam } from "../../../../services/api/endpoints/exam.api";
 import AppContext from "../../../../store/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const ListItem = styled(MuiListItem)(({}) => ({
   padding: ".25rem 0",
@@ -47,6 +48,7 @@ const AddExam = () => {
   const examDateRef = useRef(null);
   const examTimeRef = useRef(null);
   const { showLoader, hideLoader, handleAPIError } = useContext(AppContext);
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setExamData({ ...examData, [name]: value });
@@ -72,6 +74,7 @@ const AddExam = () => {
       }
       showLoader();
       const response = await createExam(payload);
+      navigate("/teacher/exams");
     } catch (e) {
       handleAPIError(e);
     } finally {

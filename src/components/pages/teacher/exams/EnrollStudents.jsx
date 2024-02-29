@@ -137,7 +137,7 @@ function EnrollStudents() {
                     <TableCell>Name</TableCell>
                     <TableCell>Email</TableCell>
                     <TableCell sx={{ textAlign: "center" }}>Status</TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>Action</TableCell>
+                    {/* <TableCell sx={{ textAlign: "center" }}>Action</TableCell> */}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -152,7 +152,7 @@ function EnrollStudents() {
                         <TableCell sx={{ textAlign: "center" }}>
                           <Chip color="warning" label={student.status} />
                         </TableCell>
-                        <TableCell sx={{ textAlign: "center" }}>
+                        {/* <TableCell sx={{ textAlign: "center" }}>
                           <Button
                             variant="contained"
                             size="small"
@@ -160,7 +160,7 @@ function EnrollStudents() {
                           >
                             Notify
                           </Button>
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     );
                   })}
@@ -218,7 +218,7 @@ function EnrollStudents() {
                 Clear All
               </Button>
             </Tooltip>
-            <Tooltip title="Upload from file">
+            {/* <Tooltip title="Upload from file">
               <Button
                 size="small"
                 variant="contained"
@@ -226,7 +226,7 @@ function EnrollStudents() {
               >
                 Upload
               </Button>
-            </Tooltip>
+            </Tooltip> */}
             <Tooltip title="Enroll">
               <Button
                 size="small"

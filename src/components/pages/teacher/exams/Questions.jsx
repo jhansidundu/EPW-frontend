@@ -105,7 +105,7 @@ const Questions = () => {
       const payload = tempQuestions.at(idx);
       const { questionId } = await createQuestion(payload);
       toggleEditMode(idx);
-      payload[id] = questionId;
+      payload["id"] = questionId;
       setQuestions([...tempQuestions]);
     } catch (err) {
       handleAPIError(err);
