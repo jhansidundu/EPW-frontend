@@ -1,7 +1,5 @@
 import { Box, Button, Chip, Paper, Typography } from "@mui/material";
 import dayjs from "dayjs";
-import { useContext } from "react";
-import AppContext from "../../../store/AppContext";
 
 const ValueChip = ({ text }) => {
   return (
@@ -22,6 +20,7 @@ const ValueChip = ({ text }) => {
 const ExamCard = ({ exam, onEnroll, onAttempt }) => {
   const examDate = dayjs(exam?.examDate).format("MMM D, YYYY h:mm a");
   const hasEnrolled = exam.status === "ENROLLED";
+  const hadFinished = exam.status === "ATTEMPTED";
 
   return (
     <Paper
@@ -84,7 +83,7 @@ const ExamCard = ({ exam, onEnroll, onAttempt }) => {
         {/* <Button variant="contained" color="primary" size="small">
           Details
         </Button> */}
-        {!hasEnrolled && (
+        {!hasEnrolled && !hadFinished && (
           <Button
             variant="contained"
             color="primary"

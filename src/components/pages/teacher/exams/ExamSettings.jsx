@@ -38,8 +38,6 @@ const ExamSettings = ({ examDetails, refresh }) => {
     setEditMode(false);
   };
   const saveSettings = async () => {
-    console.log(formData);
-    console.log(examDetails);
     try {
       if (formData) {
         showLoader();

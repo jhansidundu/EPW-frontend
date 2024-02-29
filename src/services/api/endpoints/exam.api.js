@@ -84,3 +84,18 @@ export const findExamQuestionsForStudent = async (examId) => {
   const response = await api.get(`student/exam/${examId}/questions`);
   return response.data;
 };
+
+export const saveAnswer = async (payload) => {
+  const response = await api.post(`/student/exam/question/answer`, payload);
+  return response.data;
+};
+
+export const finishExam = async (examId, payload) => {
+  const response = await api.post(`/student/exam/${examId}/finish`, payload);
+  return response.data;
+};
+
+export const startExam = async (examId) => {
+  const response = await api.get(`student/exam/${examId}/start`);
+  return response.data;
+};

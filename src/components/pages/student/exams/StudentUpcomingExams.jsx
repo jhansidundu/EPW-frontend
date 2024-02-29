@@ -47,7 +47,6 @@ export const StudentUpcomingExams = () => {
       showLoader();
       const response = await checkIfExamIsActive(examId);
       const { isActive, message } = response.data;
-      console.log(isActive, message);
       if (isActive) {
         navigate(`/student/exams/${examId}/window`);
       } else {

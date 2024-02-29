@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormControlLabel,
   Paper,
   Radio,
@@ -8,8 +9,13 @@ import {
 } from "@mui/material";
 import parser from "html-react-parser";
 
-const ExamQuestionCard = ({ ques, serialNum }) => {
-  console.log(ques);
+const ExamQuestionCard = ({
+  ques,
+  serialNum,
+  onAnswerSelect,
+  onClear,
+  onSave,
+}) => {
   return (
     <Paper
       sx={{
@@ -43,9 +49,9 @@ const ExamQuestionCard = ({ ques, serialNum }) => {
           </Box>
           <RadioGroup
             sx={{ marginTop: "0.5rem" }}
-            value={ques.answerOption}
+            value={ques.answer}
             onChange={(e) => {
-              console.log(e.target.value);
+              onAnswerSelect(e.target.value, ques.id);
             }}
           >
             <FormControlLabel
@@ -70,6 +76,24 @@ const ExamQuestionCard = ({ ques, serialNum }) => {
             />
           </RadioGroup>
         </Box>
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+        <Button
+          variant="contained"
+          color="inherit"
+          size="small"
+          onClick={() => onClear(ques.id)}
+        >
+          Clear
+        </Button>
+        <Button
+          variant="contained"
+          size="small"
+          disabled={!ques.answer}
+          onClick={() => onSave(ques.id)}
+        >
+          Save
+        </Button>
       </Box>
     </Paper>
   );
