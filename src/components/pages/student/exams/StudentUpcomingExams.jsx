@@ -59,6 +59,11 @@ export const StudentUpcomingExams = () => {
       hideLoader();
     }
   };
+
+  const handleShowResult = (examId) => {
+    navigate(`/student/exams/${examId}/result`);
+  };
+
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -72,6 +77,7 @@ export const StudentUpcomingExams = () => {
                 exam={exam}
                 onEnroll={handleEnroll}
                 onAttempt={handleAttemptNow}
+                onShowResult={handleShowResult}
               />
             </Grid>
           );
