@@ -1,7 +1,16 @@
 import { Box, Button, Grid, Link, Typography } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import AppContext from "../../../store/AppContext";
 
 const Home = () => {
+  // const { loggedIn, verifyingToken, user } = useContext(AppContext);
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!isLoading && loggedIn) {
+  //     navigate(`/${user.role}/dashboard`);
+  //   }
+  // }, [loggedIn, verifyingToken]);
   return (
     <Box sx={{ padding: "2rem" }}>
       <Typography variant="h4" sx={{ textAlign: "center" }}>

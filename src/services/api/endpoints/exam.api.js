@@ -104,3 +104,8 @@ export const startExam = async (examId) => {
   const response = await api.get(`student/exam/${examId}/start`);
   return response.data;
 };
+
+export const findExamResultForStudent = async (examId) => {
+  const response = await api.get(`student/exam/${examId}/result`);
+  return response.data;
+};

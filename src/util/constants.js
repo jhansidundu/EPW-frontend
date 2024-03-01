@@ -21,6 +21,7 @@ export const ALLOWED_ROUTES = new Map([
       /^\/student\/enroll\/(.+)$/,
       "/student/dashboard",
       /^\/student\/exams\/(\d+)\/window$/,
+      /^\/student\/exams\/(\d+)\/result$/,
       /^\/student\/verify\/(.+)$/,
     ],
   ],

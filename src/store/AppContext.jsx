@@ -78,7 +78,19 @@ export const AppContextProvider = ({ children }) => {
     localStorage.removeItem("selectedSidebar");
     setLoggedIn(false);
     setUser({ role: "", username: "" });
-    navigate("/");
+    const PATH_NAMES = [
+      "/",
+      "/teacher/login",
+      "/teacher/signup",
+      "/student/signup",
+      "/student/login",
+      "/admin/login",
+    ];
+    if (PATH_NAMES.includes(location.pathname)) {
+      navigate(location.pathname);
+    } else {
+      navigate("/");
+    }
   };
 
   const showLoader = () => {

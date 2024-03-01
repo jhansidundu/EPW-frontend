@@ -29,13 +29,36 @@ import AppContext from "./store/AppContext";
 import StudentEmailVerification from "./components/pages/student/verification/StudentEmailVerification";
 import TeacherEmailVerification from "./components/pages/teacher/verification/TeacherEmailVerification";
 import EditExam from "./components/pages/teacher/exams/EditExam";
+import AuthRoute from "./components/common/guards/AuthRoute";
+import ExamResult from "./components/pages/student/exams/ExamResult";
 
 const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<Home />} />
+    <Route
+      path="/"
+      element={
+        <AuthRoute>
+          <Home />
+        </AuthRoute>
+      }
+    />
     <Route path="student">
-      <Route path="login" element={<StudentLogin />} />
-      <Route path="signup" element={<StudentSignup />} />
+      <Route
+        path="login"
+        element={
+          <AuthRoute>
+            <StudentLogin />
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="signup"
+        element={
+          <AuthRoute>
+            <StudentSignup />
+          </AuthRoute>
+        }
+      />
       <Route path="enroll/:enrollmentId" element={<StudentEnrollment />} />
       <Route path="verify/:email" element={<StudentEmailVerification />} />
       <Route
@@ -54,10 +77,32 @@ const AppRoutes = () => (
           </ProtectedRoute>
         }
       />
+      <Route
+        path="exams/:examId/result"
+        element={
+          <ProtectedRoute>
+            <ExamResult />
+          </ProtectedRoute>
+        }
+      />
     </Route>
     <Route path="teacher">
-      <Route path="signup" element={<TeacherSingup />} />
-      <Route path="login" element={<TeacherLogin />} />
+      <Route
+        path="signup"
+        element={
+          <AuthRoute>
+            <TeacherSingup />
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="login"
+        element={
+          <AuthRoute>
+            <TeacherLogin />
+          </AuthRoute>
+        }
+      />
       <Route path="verify/:email" element={<TeacherEmailVerification />} />
       <Route
         path="dashboard"
@@ -109,7 +154,14 @@ const AppRoutes = () => (
       />
     </Route>
     <Route path="admin">
-      <Route path="login" element={<AdminLogin />} />
+      <Route
+        path="login"
+        element={
+          <AuthRoute>
+            <AdminLogin />
+          </AuthRoute>
+        }
+      />
       <Route
         path="dashboard"
         element={
