@@ -14,3 +14,8 @@ export const isTokenValid = async () => {
   const response = await api.get("user/validate-token");
   return response.data;
 };
+
+export const verifyEmail = async (email) => {
+  const response = await api.get(`user/verify/email/${email}`);
+  return response.data;
+};

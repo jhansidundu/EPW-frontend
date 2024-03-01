@@ -1,6 +1,6 @@
+import { AccessTime } from "@mui/icons-material";
 import { Box, Chip } from "@mui/material";
-import { ClockIcon } from "@mui/x-date-pickers";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const ExamTimer = ({ startTime, duration, onFinish }) => {
   const [remainingTime, setRemainingTime] = useState(getRemainingTime()); // Convert duration to seconds
@@ -38,7 +38,7 @@ const ExamTimer = ({ startTime, duration, onFinish }) => {
   return (
     <Box>
       <Chip
-        icon={<ClockIcon />}
+        icon={<AccessTime />}
         color="info"
         label={getTimeString(remainingTime)}
       ></Chip>

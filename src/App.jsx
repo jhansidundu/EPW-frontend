@@ -26,6 +26,9 @@ import TeacherExams from "./components/pages/teacher/exams/TeacherExams";
 import TeacherLogin from "./components/pages/teacher/login/TeacherLogin";
 import TeacherSingup from "./components/pages/teacher/signup/TeacherSingup";
 import AppContext from "./store/AppContext";
+import StudentEmailVerification from "./components/pages/student/verification/StudentEmailVerification";
+import TeacherEmailVerification from "./components/pages/teacher/verification/TeacherEmailVerification";
+import EditExam from "./components/pages/teacher/exams/EditExam";
 
 const AppRoutes = () => (
   <Routes>
@@ -34,6 +37,7 @@ const AppRoutes = () => (
       <Route path="login" element={<StudentLogin />} />
       <Route path="signup" element={<StudentSignup />} />
       <Route path="enroll/:enrollmentId" element={<StudentEnrollment />} />
+      <Route path="verify/:email" element={<StudentEmailVerification />} />
       <Route
         path="dashboard"
         element={
@@ -54,6 +58,7 @@ const AppRoutes = () => (
     <Route path="teacher">
       <Route path="signup" element={<TeacherSingup />} />
       <Route path="login" element={<TeacherLogin />} />
+      <Route path="verify/:email" element={<TeacherEmailVerification />} />
       <Route
         path="dashboard"
         element={
@@ -75,6 +80,14 @@ const AppRoutes = () => (
         element={
           <ProtectedRoute>
             <AddExam />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="exams/:examId/edit"
+        element={
+          <ProtectedRoute>
+            <EditExam />
           </ProtectedRoute>
         }
       />

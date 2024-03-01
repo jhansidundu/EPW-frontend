@@ -76,6 +76,9 @@ const TeacherExams = () => {
       <Grid container spacing={2}>
         <Grid item md={8}>
           <Box sx={{ marginTop: "1rem" }}>
+            {(!exams || exams.length == 0) && (
+              <Typography variant="body2">No Exams</Typography>
+            )}
             {exams.map((exam) => (
               <ExamAccordian
                 key={exam.id}

@@ -161,6 +161,14 @@ const ExamAccordian = ({ expanded, onToggle, exam, examDetails }) => {
                 variant="contained"
                 size="small"
                 sx={{ marginX: "0.5rem" }}
+                onClick={() => navigate(`/teacher/exams/${exam.id}/edit`)}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ marginX: "0.5rem" }}
                 onClick={() => navigate(`/teacher/exams/${exam.id}/questions`)}
               >
                 Show Questions
