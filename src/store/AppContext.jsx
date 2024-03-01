@@ -48,7 +48,13 @@ export const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!location.pathname.match(/^\/student\/enroll\/(.+)$/)) {
+    if (
+      !(
+        location.pathname.match(/^\/student\/enroll\/(.+)$/) ||
+        location.pathname.match(/^\/student\/verify\/(.+)$/) ||
+        location.pathname.match(/^\/teacher\/verify\/(.+)$/)
+      )
+    ) {
       validateToken();
     }
     getExamStatusList();

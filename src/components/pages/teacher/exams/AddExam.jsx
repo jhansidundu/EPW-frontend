@@ -1,5 +1,4 @@
 import {
-  Camera,
   Lock,
   RemoveCircle,
   Shuffle,
@@ -19,12 +18,12 @@ import {
 } from "@mui/material";
 import MuiListItem from "@mui/material/ListItem";
 import MuiListItemIcon from "@mui/material/ListItemIcon";
-import { MobileDatePicker, MobileTimePicker } from "@mui/x-date-pickers";
+import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createExam } from "../../../../services/api/endpoints/exam.api";
 import AppContext from "../../../../store/AppContext";
-import { useNavigate } from "react-router-dom";
 
 const ListItem = styled(MuiListItem)(({}) => ({
   padding: ".25rem 0",
@@ -45,8 +44,8 @@ const AddExam = () => {
     negativeMarking: false,
     switchBetweenQuestions: true,
   });
-  const examDateRef = useRef(null);
-  const examTimeRef = useRef(null);
+  const [examDate, setExamDate] = useState(null);
+  const [examTime, setExamTime] = useState(null);
   const { showLoader, hideLoader, handleAPIError } = useContext(AppContext);
   const navigate = useNavigate();
   const handleInputChange = (e) => {
@@ -62,18 +61,17 @@ const AddExam = () => {
   const handleSubmit = async () => {
     try {
       const payload = { ...examData };
-      if (examDateRef.current && examTimeRef.current) {
-        const examDate = examDateRef.current.value;
-        const examTime = examTimeRef.current.value;
-        if (examDate && examTime) {
-          payload.examDate = dayjs(
-            `${examDate} ${examTime}`,
-            "MM/DD/YYYY hh:mm A"
-          ).toISOString();
-        }
+      if (!!examDate && !!examTime) {
+        const examDateString = examDate.format("MM/DD/YYYY");
+        const examTimeString = examTime.format("hh:mm a");
+        payload.examDate = dayjs(
+          `${examDateString} ${examTimeString}`,
+          "MM/DD/YYYY hh:mm A"
+        ).toISOString();
       }
+
       showLoader();
-      const response = await createExam(payload);
+      await createExam(payload);
       navigate("/teacher/exams");
     } catch (e) {
       handleAPIError(e);
@@ -103,11 +101,23 @@ const AddExam = () => {
           <Grid container spacing={2} sx={{ marginTop: "0.25rem" }}>
             <Grid item md={3}>
               <InputLabel>Exam Date</InputLabel>
-              <MobileDatePicker sx={{ width: "100%" }} inputRef={examDateRef} />
+              <DatePicker
+                value={examDate}
+                onChange={(newValue) => {
+                  setExamDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
             </Grid>
             <Grid item md={3}>
               <InputLabel>Exam Time</InputLabel>
-              <MobileTimePicker sx={{ width: "100%" }} inputRef={examTimeRef} />
+              <TimePicker
+                value={examTime}
+                onChange={(newValue) => {
+                  setExamTime(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
             </Grid>
             <Grid item md={4}>
               <InputLabel>Duration (in min.)</InputLabel>
@@ -147,8 +157,8 @@ const AddExam = () => {
                 onChange={handleSwitchChange}
               />
             </ListItem>
-            <ListItem disablePadding>
-              {/* <ListItemIcon>
+            {/* <ListItem disablePadding>
+              <ListItemIcon>
                 <Camera />
               </ListItemIcon> */}
               {/* <ListItemText primary="Webcam" />
@@ -156,8 +166,8 @@ const AddExam = () => {
                 name="webcam"
                 checked={examData.webcam}
                 onChange={handleSwitchChange}
-              /> */}
-            </ListItem>
+              />
+            </ListItem> */}
             <ListItem disablePadding>
               <ListItemIcon>
                 <Shuffle />

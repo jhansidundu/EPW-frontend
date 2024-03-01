@@ -40,6 +40,7 @@ const TeacherSingup = () => {
     name: "",
     role: "teacher",
   });
+  const [emailSent, setEmailSent] = useState(false);
   const navigate = useNavigate();
 
   const { showLoader, hideLoader, handleAPIError, setLoginState } =
@@ -53,9 +54,8 @@ const TeacherSingup = () => {
   const handleSubmit = async () => {
     try {
       showLoader();
-      const authRes = await signup(formData);
-      setLoginState(authRes.data);
-      navigate("/teacher/dashboard");
+      await signup(formData);
+      setEmailSent(true);
     } catch (err) {
       handleAPIError(err);
     } finally {
@@ -69,78 +69,98 @@ const TeacherSingup = () => {
           <img src={appLogo} width={200} />
         </Button>
       </Box>
-      <Grid container>
-        <Grid
-          item
-          md={3}
+      {emailSent && (
+        <Box
           sx={{
             display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            marginTop: "3rem",
           }}
         >
-          <img src={teacherLogo} alt="" />
-        </Grid>
+          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+            A verification email has been sent to your registered email address.
+          </Typography>
+          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+            Please check your inbox (including spam folder) and click on the
+            link to verify your account.
+          </Typography>
+        </Box>
+      )}
+      {!emailSent && (
+        <Grid container>
+          <Grid
+            item
+            md={3}
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <img src={teacherLogo} alt="" />
+          </Grid>
 
-        <Grid item md={9}>
-          <StyledBox>
-            <Typography
-              variant="h6"
-              sx={{ textAlign: "center", marginBottom: "1rem" }}
-            >
-              Register here as a teacher
-            </Typography>
-            <form>
-              <StyledTextField
-                type="text"
-                label="Username"
-                size="small"
-                fullWidth
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-              />
-              <StyledTextField
-                type="email"
-                label="Email"
-                size="small"
-                fullWidth
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-              <StyledTextField
-                type="password"
-                label="Password"
-                size="small"
-                fullWidth
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-
-              <Button
-                variant="contained"
-                type="button"
-                fullWidth
-                onClick={handleSubmit}
+          <Grid item md={9}>
+            <StyledBox>
+              <Typography
+                variant="h6"
+                sx={{ textAlign: "center", marginBottom: "1rem" }}
               >
-                Sign up
-              </Button>
-              <Box sx={{ marginTop: "1rem" }}>
-                Already have an account?{" "}
-                <Link
-                  component={RouterLink}
-                  to={"/teacher/login"}
-                  underline="none"
+                Register here as a teacher
+              </Typography>
+              <form>
+                <StyledTextField
+                  type="text"
+                  label="Username"
+                  size="small"
+                  fullWidth
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                />
+                <StyledTextField
+                  type="email"
+                  label="Email"
+                  size="small"
+                  fullWidth
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+                <StyledTextField
+                  type="password"
+                  label="Password"
+                  size="small"
+                  fullWidth
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+
+                <Button
+                  variant="contained"
+                  type="button"
+                  fullWidth
+                  onClick={handleSubmit}
                 >
-                  Login here
-                </Link>
-              </Box>
-            </form>
-          </StyledBox>
+                  Sign up
+                </Button>
+                <Box sx={{ marginTop: "1rem" }}>
+                  Already have an account?{" "}
+                  <Link
+                    component={RouterLink}
+                    to={"/teacher/login"}
+                    underline="none"
+                  >
+                    Login here
+                  </Link>
+                </Box>
+              </form>
+            </StyledBox>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </Box>
   );
 };

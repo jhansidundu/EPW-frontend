@@ -10,7 +10,9 @@ export const ALLOWED_ROUTES = new Map([
       "/teacher/exams",
       "/teacher/exams/add",
       /^\/teacher\/exams\/(\d+)\/questions$/,
+      /^\/teacher\/exams\/(\d+)\/edit$/,
       /^\/teacher\/exams\/(\d+)\/enroll$/,
+      /^\/teacher\/verify\/(.+)$/,
     ],
   ],
   [
@@ -19,6 +21,7 @@ export const ALLOWED_ROUTES = new Map([
       /^\/student\/enroll\/(.+)$/,
       "/student/dashboard",
       /^\/student\/exams\/(\d+)\/window$/,
+      /^\/student\/verify\/(.+)$/,
     ],
   ],
 ]);

@@ -5,6 +5,11 @@ export const createExam = async (payload) => {
   return response.data;
 };
 
+export const updateExam = async (examId, payload) => {
+  const response = await api.post(`exam/${examId}/update`, payload);
+  return response.data;
+};
+
 export const findTeacherExams = async () => {
   const response = await api.get("exam/teacher");
   return response.data;
