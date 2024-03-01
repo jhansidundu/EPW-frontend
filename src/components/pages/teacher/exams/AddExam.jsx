@@ -148,15 +148,15 @@ const AddExam = () => {
               />
             </ListItem>
             <ListItem disablePadding>
-              <ListItemIcon>
+              {/* <ListItemIcon>
                 <Camera />
-              </ListItemIcon>
-              <ListItemText primary="Webcam" />
+              </ListItemIcon> */}
+              {/* <ListItemText primary="Webcam" />
               <Switch
                 name="webcam"
                 checked={examData.webcam}
                 onChange={handleSwitchChange}
-              />
+              /> */}
             </ListItem>
             <ListItem disablePadding>
               <ListItemIcon>

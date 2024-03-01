@@ -116,13 +116,13 @@ const TeacherLogin = () => {
                   justifyContent: "flex-end",
                 }}
               >
-                <Link
+                {/* <Link
                   underline="none"
                   component={RouterLink}
                   to={"/forgot-password"}
                 >
                   Forgot Password?
-                </Link>
+                </Link> */}
               </Box>
               <Button variant="contained" fullWidth onClick={handleSubmit}>
                 Login

@@ -45,11 +45,11 @@ const Header = () => {
         <h5 style={{ margin: 0 }}>Welcome {user.username}</h5>
       </Box>
       <Stack direction={"row"} sx={{ alignItems: "center" }}>
-        <Tooltip title="Notifications">
+        {/* <Tooltip title="Notifications">
           <IconButton>
             <NotificationsOutlined />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title="Logout">
           <IconButton onClick={handleLogout}>
             <Logout />
