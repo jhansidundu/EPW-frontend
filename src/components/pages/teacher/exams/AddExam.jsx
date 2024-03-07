@@ -66,7 +66,7 @@ const AddExam = () => {
         const examTimeString = examTime.format("hh:mm a");
         payload.examDate = dayjs(
           `${examDateString} ${examTimeString}`,
-          "MM/DD/YYYY hh:mm A"
+          "MM/DD/YYYY hh:mm a"
         ).toISOString();
       }
 
