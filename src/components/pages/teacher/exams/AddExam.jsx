@@ -79,7 +79,7 @@ const AddExam = () => {
       hideLoader();
     }
   };
-
+// this is add exam
   return (
     <Box sx={{ marginTop: "1rem" }}>
       <Grid container sx={{ marginX: "1rem" }}>
