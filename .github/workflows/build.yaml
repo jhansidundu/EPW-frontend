@@ -1,0 +1,25 @@
+name: Build
+on:
+  push:
+    branches: [actions]
+  workflow_dispatch:
+    
+
+jobs:
+  build:
+    name: Create a build 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
+      - name: Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16.20.2
+      - name: Install node dependencies
+        run: npm ci
+      - name: Run build
+        run: npm run build
+
+
+          
