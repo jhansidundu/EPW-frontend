@@ -20,6 +20,9 @@ jobs:
         run: npm ci
       - name: Run build
         run: npm run build
+      - name: List out files
+        run: ls dist
+
 
 
           
